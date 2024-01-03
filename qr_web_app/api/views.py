@@ -1,12 +1,16 @@
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Event
-from .serializers import EventSerializer, CreateEventSerializer
+from .models import Event, Guest
+from .serializers import EventSerializer, CreateEventSerializer, GuestSerializer
 
 class EventView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+class GuestView(generics.CreateAPIView):
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
 
 class CreateEventView(APIView):
     serializer_class = CreateEventSerializer
