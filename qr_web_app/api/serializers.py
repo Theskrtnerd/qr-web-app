@@ -15,3 +15,8 @@ class CreateEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('name','description','date','location','link')
+
+class CreateGuestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guest
+        fields = ('name','email','ticketChecked')

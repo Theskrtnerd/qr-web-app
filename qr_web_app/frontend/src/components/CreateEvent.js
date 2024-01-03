@@ -12,10 +12,34 @@ function CreateEvent() {
     link: '',
   });
 
+  const maxNameLength = 500;
+  const maxDescriptionLength = 500;
+  const maxLocationLength = 500;
+  const maxLinkLength = 500;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEventInfo((prevInfo) => ({
-      ...prevInfo,
+
+    // Validate max length based on the field name
+    if (name === 'name' && value.length > maxNameLength) {
+      alert('Event name cannot exceed 500 characters')
+      return; // Do not update state if exceeding max length
+    }
+    if (name === 'description' && value.length > maxDescriptionLength) {
+      alert('Description name cannot exceed 500 characters')
+      return;
+    }
+    if (name === 'location' && value.length > maxLocationLength) {
+      alert('Location name cannot exceed 500 characters')
+      return;
+    }
+    if (name === 'link' && value.length > maxLinkLength) {
+      alert('Link name cannot exceed 500 characters')
+      return;
+    }
+
+    setEventInfo((prevEventInfo) => ({
+      ...prevEventInfo,
       [name]: value,
     }));
   };
@@ -23,6 +47,14 @@ function CreateEvent() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission or API call here with the eventInfo
+    if (!eventInfo.name || !eventInfo.description || !eventInfo.date || !eventInfo.location || !eventInfo.link) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    // If all fields are filled, you can proceed with submitting the form or any other desired action
+    console.log('Form submitted:', eventInfo);
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

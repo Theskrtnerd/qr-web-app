@@ -12,11 +12,11 @@ def generate_event_code():
     return code
 
 class Event(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
     date = models.DateTimeField()
-    location = models.CharField(max_length=100)
-    link = models.CharField(max_length=100)
+    location = models.CharField(max_length=500)
+    link = models.URLField(max_length=500)
     code = models.CharField(max_length=8, default=generate_event_code, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -25,7 +25,7 @@ class Event(models.Model):
 
 class Guest(models.Model):
     event = models.ForeignKey(Event, related_name='guests', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=500)
     email = models.EmailField()
     ticketChecked = models.BooleanField(null=False,default=False)
 

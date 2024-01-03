@@ -2,22 +2,23 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Event, Guest
-from .serializers import EventSerializer, CreateEventSerializer, GuestSerializer
+from .serializers import EventSerializer, CreateEventSerializer, GuestSerializer, CreateGuestSerializer
 
 class EventView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-class GuestView(generics.CreateAPIView):
+class GuestView(generics.ListAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+
 
 class CreateEventView(APIView):
     serializer_class = CreateEventSerializer
 
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
-        
+
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
             description = serializer.validated_data.get('description')
@@ -36,6 +37,46 @@ class CreateEventView(APIView):
             return Response(EventSerializer(event).data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CreateGuestView(APIView):
+    serializer_class = CreateGuestSerializer
+
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            email = serializer.validated_data.get('email')
+            ticket_checked = serializer.validated_data.get('ticketChecked')
+            event_code = request.data.get('eventCode')
+
+            # Retrieve the event using the 'GetEvent' view
+            # event_view = GetEvent()
+            # event_response = event_view.get(request, code=event_code)
+            # print(event_response.data)
+            event = Event.objects.get(code=event_code)
+
+            guest = Guest.objects.create(
+                event=event,
+                name=name,
+                email=email,
+                ticketChecked=ticket_checked
+            )
+
+            return Response(CreateGuestSerializer(guest).data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class GetGuestList(APIView):
+    def get(self, request, format=None):
+        eventCode = request.GET.get('eventCode')
+        if eventCode != None:
+            event = Event.objects.filter(code=eventCode)
+            if len(event) > 0:
+                guests = Guest.objects.filter(event=event[0])
+                return Response(GuestSerializer(guests, many=True).data, status=status.HTTP_200_OK)
+            return Response({'Guest Not Found': 'Invalid Event Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
     
 class GetEvent(APIView):
     serializer_class = EventSerializer

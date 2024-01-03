@@ -24,10 +24,10 @@ const HomePage = () => {
         </div> {/* How To Use */}
         <div className="flex gap-8 w-full justify-center">
           <Link to={"/create"} style={{ textDecoration: 'none' }} className="hover:scale-105 ease-in-out delay-100 duration-300 hover:-translate-y-2">
-            <button className="px-8 py-3 md:py-4 text-sm md:text-base bg-primary font-body rounded-lg drop-shadow-lg">Create Event</button>
+            <button className="px-8 py-3 md:py-4 text-sm md:text-base bg-primary font-body rounded-lg drop-shadow-xl border-2 border-gray-200">Create Event</button>
           </Link>
           <Link to={"/join"} style={{ textDecoration: 'none' }} className="hover:scale-105 ease-in-out delay-100 duration-300 hover:-translate-y-2">
-            <button className="px-8 py-3 md:py-4 text-sm md:text-base bg-secondary font-body rounded-lg drop-shadow-lg">Join Event</button>
+            <button className="px-8 py-3 md:py-4 text-sm md:text-base bg-secondary font-body rounded-lg drop-shadow-xl border-2 border-gray-200">Join Event</button>
           </Link>
         </div> {/* Create/Join Button */}
         <div>
