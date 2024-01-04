@@ -5,7 +5,7 @@ from email.mime.application import MIMEApplication
 import os
 from dotenv import load_dotenv
 
-env_path = os.path.join(os.path.dirname(__file__), '../../../.env')  # Adjust the path based on your project structure
+env_path = os.path.join(os.path.dirname(__file__), '../../.env')  # Adjust the path based on your project structure
 load_dotenv(dotenv_path=env_path)
 smtp_username = os.environ.get('HOST_EMAIL')
 smtp_password = os.environ.get('HOST_PASSWORD')
