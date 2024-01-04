@@ -5,15 +5,15 @@ import os
 # Data to pass into qrcode, event_code, guest_id
 
 def encode_data(event_code, guest_id):
-    data = f"E:{event_code},G:{guest_id}"
+    data = f"E-{event_code},G-{guest_id}"
     encoded_data = base64.urlsafe_b64encode(data.encode()).decode()
     return encoded_data
 
 def decode_data(encoded_data):
     try:
         decoded_data = base64.urlsafe_b64decode(encoded_data).decode()
-        event_code = decoded_data.split(',')[0].split(':')[1]
-        guest_id = int(decoded_data.split(',')[1].split(':')[1])
+        event_code = decoded_data.split(',')[0].split('-')[1]
+        guest_id = int(decoded_data.split(',')[1].split('-')[1])
         return event_code, guest_id
     except:
         return None, None
@@ -31,5 +31,5 @@ def generate_qr_codes_for_event(guestList, event_code):
     for guest in guestList:
         guest_id = guest['id']
         encoded_data = encode_data(event_code, guest_id)
-        filename = f"E:{event_code},G:{guest_id}.png"
+        filename = f"E-{event_code},G-{guest_id}.png"
         generate_qr_code(encoded_data, f"{directory_path}{filename}")
