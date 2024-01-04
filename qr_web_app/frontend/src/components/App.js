@@ -6,6 +6,8 @@ import CreateEvent from './CreateEvent';
 import JoinEvent from './JoinEvent';
 import Event from './Event';
 import HomePage from './HomePage';
+import QRScan from './QRScan';
+import NotFound from './NotFound';
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
         <Route path="/join" element={<JoinEvent />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/event/:eventCode" element={<Event />} />
+        <Route path="/scan/:eventCode" element={<QRScan />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

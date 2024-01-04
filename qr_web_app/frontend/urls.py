@@ -7,4 +7,5 @@ urlpatterns = [
     path('join', index),
     path('create', index),
     path('event/<str:eventCode>', index),
+    path('scan/<str:eventCode>', index),
 ]

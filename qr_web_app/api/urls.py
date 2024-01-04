@@ -15,12 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import EventView, CreateEventView, GetEvent, GuestView, CreateGuestView, GetGuestList
+from .views import EventView, CreateEventView, GetEvent, GuestView, CreateGuestView, GetGuestList, UpdateGuestListView, SendEmailToGuestList, CheckGuestView
 
 urlpatterns = [
-    path('', GuestView.as_view()),
+    path('', EventView.as_view()),
     path('create-event/', CreateEventView.as_view(), name='create-event'),
     path('get-event/', GetEvent.as_view(), name='get-event'),
     path('create-guest/', CreateGuestView.as_view(), name='create-guest'),
     path('get-guest-list/', GetGuestList.as_view(), name='get-guest-list'),
+    path('update-guest-list/', UpdateGuestListView.as_view(), name='update-guest-list'),
+    path('send-emails/', SendEmailToGuestList.as_view(), name='send-emails'),
+    path('check-guest/', CheckGuestView.as_view(), name='check-guest'),
 ]
