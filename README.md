@@ -18,7 +18,7 @@ This web application is built using Django, React, Webpack, Babel, and TailwindC
 
 Follow these steps to set up and run the Event Management Web App locally:
 
-1. Clone the repository: `git clone [repository_url]`
+1. Clone the repository: `git clone https://github.com/Theskrtnerd/qr-web-app.git`
 2. Install dependencies: `npm install` and `pip install -r requirements.txt`
 3. Run the development server: `npm run dev` for the frontend and `python manage.py runserver` for the backend.
 
